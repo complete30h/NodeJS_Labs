@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>мяугав</title>
+    <meta charset="utf-8" />
+    <link href="./styles.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Список задач</h1>
+    <div class = "wrapper">
+    <div class="myBtnContainer">
+        <button class="Все" id="1" onclick="tableAll()"> Показать все</button>
+        <button class="Открыта" id="2" onclick="tableSearch('Открыта')">Открыты</button>
+        <button class="Решена" id="4" onclick="tableSearch('Решена')"> Решены</button>
+      </div>
+    <form>          
+        <table class="window-content" id="labs-table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Task</th>
+                <th scope="col">Status</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">File</th>
+              </tr>
+            </thead>
+            <tbody>
+
+                <% for (var i=0; i<tasks.length;i++) {%>
+                    <tr>
+                      <th scope="row"><%=i+1%></th>
+                      <td><%=tasks[i].taskname%></td>
+                      <td><%=tasks[i].status%></td>
+                      <td><%=tasks[i].deadline%></td>
+                      <td><a href="<%= tasks[i].attached %>" download=""><%=tasks[i].attached%></a></td>
+                      </tr>
+                      <%} %> 
+            </tbody>
+          </table>
+    </form>
+    <form class = "add" method="post">
+        <table id="add-table">
+        <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">File</th>
+        </tr>
+        <tr>
+        <td> <input type="text" name = "Taskname" size="10"></td>
+        <td> <input type="date" name = "Date" size="10"></td>
+        <td> <input type="file" name = "File" size="10"></td>
+        <td> <input type="submit" value="Добавить" size="10"></td>
+        </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
+
+<script>
+
+    function tableAll() 
+    {
+        var table = document.getElementById('labs-table');
+        for (var i = 1; i < table.rows.length; i++) 
+        {
+                table.rows[i].style.display = "";
+        }
+    }
+    function tableSearch(string ) 
+    {
+        var table = document.getElementById('labs-table');
+        for (var i = 1; i < table.rows.length; i++) 
+        {
+            if (table.rows[i].cells[2].innerText != string)
+            {
+                table.rows[i].style.display = "none";
+            }
+            else
+            {
+                table.rows[i].style.display = "";
+            }
+        }
+    }
+    </script>
